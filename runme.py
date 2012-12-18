@@ -12,6 +12,9 @@ def index():
     return render_template('index.html', meals=f)
 
 if __name__ == '__main__':
-    if os.environ['TESTING'] == '1':
-        app.debug = True
+    try:
+        if os.environ['TESTING'] == '1':
+            app.debug = True
+    except KeyError:
+        pass
     app.run()
