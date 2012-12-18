@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
+import pytz
 
 
 def get_json_timeline():
@@ -11,7 +12,8 @@ def get_json_timeline():
 
 
 def today_format():
-    return datetime.date.today().strftime('%Y,%m,%d')
+    pacific = pytz.timezone('US/Pacific')
+    return datetime.datetime.now(tz=pacific).strftime('%Y,%m,%d')
 
 
 def find_date(li, formatted_date):
