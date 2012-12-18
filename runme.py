@@ -12,9 +12,9 @@ def index():
     return render_template('index.html', meals=f)
 
 if __name__ == '__main__':
-    try:
-        if os.environ['TESTING'] == '1':
-            app.debug = True
-    except KeyError:
-        pass
-    app.run()
+    if os.environ.get('TESTING', '0') == '1':
+        app.debug = True
+        app.run()
+    else:
+        port = int(os.environ.get('PORT', 5000))
+        app.run(host='0.0.0.0', port=port)
