@@ -11,9 +11,13 @@
         .nav {
             margin-top: 50px;
         }
+        li{
+            margin: 10px;
+            font-size: 15px;
+        }
     </style>
   </head>
-  <body data-spy="scroll" data-target=".nav">
+  <body>
     <div class="container-fluid">
     <div class="row-fluid">
         <ul id="navlist" class="nav nav-list affix span2">
@@ -36,10 +40,8 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $('#navlist').affix();
-            // $('#navlist').scrollspy({
-            //     'offset': 30
-            });
+            // $('#navlist').affix();
+            // $('#navlist').scrollspy();
         });
     </script>
   </body>
