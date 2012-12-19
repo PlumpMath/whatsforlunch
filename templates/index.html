@@ -11,10 +11,11 @@
         .nav {
             margin-top: 50px;
         }
-        li{
+        li a{
             margin: 10px;
-            font-size: 15px;
+            font-size: 16px;
         }
+        
     </style>
   </head>
   <body>
@@ -24,6 +25,7 @@
             <li><a href="#1">Breakfast</a></li>
             <li><a href="#2">Lunch</a></li>
             <li><a href="#3">Dinner</a></li>
+            <li><small>Allergen Key: *Vegetarian, **Vegan, (G) Gluten Safe, (D) Dairy Safe, (N) Nut Safe, (E) Egg Safe, (S) Soy Safe.</small></li>
         </ul>
         <div id="content" class="span6 offset2">
         {% for meal in meals %}
