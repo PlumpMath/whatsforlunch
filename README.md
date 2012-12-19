@@ -1,4 +1,4 @@
-whatsforlunch
+What's for Lunch at MoPub?
 =============
 
-MoFood
+A Site Designed to Change Your Life
