@@ -1,7 +1,7 @@
 import os
 import datetime
 
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
 import pytz
 
 import data
@@ -10,13 +10,32 @@ import data
 app = Flask(__name__)
 
 
-@app.route('/')
-@app.route('/index.html')
-def index():
+def today_offset(offset=0):
     pacific = pytz.timezone('US/Pacific')
-    today = datetime.datetime.now(tz=pacific).date()
-    f = data.get_food_for_day(today)
-    return render_template('index.html', meals=f)
+    dt = datetime.datetime.now(tz=pacific) + datetime.timedelta(days=offset)
+    return dt.date()
+
+
+def url_for_offset(offset=0):
+    date = today_offset(offset)
+    url = url_for('food_for_date', year=date.year, month=date.month, day=date.day)
+    return url
+
+
+@app.route('/')
+@app.route('/today/')
+def index():
+    return redirect(url_for_offset(0))
+
+
+@app.route('/yesterday/')
+def yesterday():
+    return redirect(url_for_offset(-1))
+
+
+@app.route('/tomorrow/')
+def tomorrow():
+    return redirect(url_for_offset(1))
 
 
 @app.route('/<int:year>-<int:month>-<int:day>/')
