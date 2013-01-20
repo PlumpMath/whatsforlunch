@@ -43,7 +43,7 @@ def food_for_date(year, month, day):
     date_string = '{}-{}-{}'.format(year, month, day)
     date = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
     f = data.get_food_for_day(date)
-    return render_template('index.html', meals=f)
+    return render_template('index.html', meals=f, date=date)
 
 # Initialize server with optional debug mode
 if __name__ == '__main__':

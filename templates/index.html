@@ -15,19 +15,22 @@
             margin: 10px;
             font-size: 16px;
         }
-        
+
     </style>
   </head>
   <body>
     <div class="container-fluid">
+    <h2 class="row-fluid span12 offset3">{{ date.strftime('%A: %B %d, %Y') }} </h2>
     <div class="row-fluid">
         <ul id="navlist" class="nav nav-list affix span2">
             <li><a href="#1">Breakfast</a></li>
             <li><a href="#2">Lunch</a></li>
             <li><a href="#3">Dinner</a></li>
-            <li><small>Allergen Key: *Vegetarian, **Vegan, (G) Gluten Safe, (D) Dairy Safe, (N) Nut Safe, (E) Egg Safe, (S) Soy Safe.</small></li>
         </ul>
         <div id="content" class="span6 offset2">
+        {% if not meals  %}
+            Sorry, I can't find meals for this date
+        {% endif %}
         {% for meal in meals %}
             <section id="{{loop.index}}">
                 <h2>{{ meal.headline|safe }}</h2>

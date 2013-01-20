@@ -25,6 +25,13 @@ def replace_cater2me_links(menu_list):
     for item in menu_list:
         item['headline'] = item['headline'].replace('src="/', 'src="http://cater2.me/')
         item['headline'] = item['headline'].replace('href="/', 'href="http://cater2.me/')
+        item['text'] = item['text'].replace('**', ' (Vegan)')
+        item['text'] = item['text'].replace('*', ' (Vegetarian)')
+        item['text'] = item['text'].replace('(G)', ' (Gluten Safe)')
+        item['text'] = item['text'].replace('(E)', ' (Egg Safe)')
+        item['text'] = item['text'].replace('(S)', ' (Soy Safe)')
+        item['text'] = item['text'].replace('(N)', ' (Nut Safe)')
+        item['text'] = item['text'].replace('(D)', ' (Dairy Safe)')
     return menu_list
 
 
