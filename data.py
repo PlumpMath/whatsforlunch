@@ -1,6 +1,4 @@
 import requests
-import datetime
-import pytz
 
 
 def get_json_timeline():
@@ -10,9 +8,8 @@ def get_json_timeline():
     return r.json()
 
 
-def today_format():
-    pacific = pytz.timezone('US/Pacific')
-    return datetime.datetime.now(tz=pacific).strftime('%Y,%m,%d')
+def day_format(date=None):
+    return date.strftime('%Y,%m,%d')
 
 
 def find_date(li, formatted_date):
@@ -31,10 +28,10 @@ def replace_cater2me_links(menu_list):
     return menu_list
 
 
-def get_food_for_today():
+def get_food_for_day(date=None):
     timeline = get_json_timeline()
     menu_list = timeline['timeline']['date']
-    today_formatted = today_format()
-    foods = find_date(menu_list, today_formatted)
+    date_formatted = day_format(date)
+    foods = find_date(menu_list, date_formatted)
     foods = replace_cater2me_links(foods)
     return foods
