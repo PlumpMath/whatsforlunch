@@ -1,11 +1,19 @@
 import requests
+from werkzeug.contrib.cache import SimpleCache
+cache = SimpleCache()
 
 
 def get_json_timeline():
-    r = requests.get(
-        'http://cater2.me/VeriteCo-TimelineJS/calendar/Mopub.json'
-        )
-    return r.json()
+    cached_timeline = cache.get('timeline')
+    print 'hello'
+    if cached_timeline is None:
+        print 'fetching'
+        r = requests.get(
+            'http://cater2.me/VeriteCo-TimelineJS/calendar/Mopub.json'
+            )
+        cached_timeline = r.json()
+        cache.set('timeline', cached_timeline, timeout=60 * 60)
+    return cached_timeline
 
 
 def day_format(date=None):
