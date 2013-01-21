@@ -47,7 +47,7 @@
             </div>
             <div id="content" class="span10 offset2">
             {% if not meals  %}
-                Sorry bro, I can't find meals for this date
+                Sorry bro, I can't find any meals for this date. It's either because no meals were catered or because cater2me's API stopped sending info for this date.
             {% endif %}
             {% for meal in meals %}
                 <section id="{{loop.index}}">
