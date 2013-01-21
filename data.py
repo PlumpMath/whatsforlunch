@@ -5,9 +5,7 @@ cache = SimpleCache()
 
 def get_json_timeline():
     cached_timeline = cache.get('timeline')
-    print 'hello'
     if cached_timeline is None:
-        print 'fetching'
         r = requests.get(
             'http://cater2.me/VeriteCo-TimelineJS/calendar/Mopub.json'
             )
