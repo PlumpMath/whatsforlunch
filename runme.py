@@ -2,12 +2,20 @@ import os
 import datetime
 
 from flask import Flask, render_template, url_for, redirect
+from flask.ext.assets import Environment, Bundle
 import pytz
 
 import data
 
-
 app = Flask(__name__)
+assets = Environment(app)
+js = Bundle('js/bootstrap.min.js', 'js/bootstrap-datepicker.js',
+            filters='jsmin', output='gen/packed.js')
+assets.register('js_all', js)
+
+css = Bundle('css/bootstrap.min.css', 'css/datepicker.css',
+                 filters='cssmin', output="gen/all.css")
+assets.register('css_all', css)
 
 
 def today_offset(offset=0):

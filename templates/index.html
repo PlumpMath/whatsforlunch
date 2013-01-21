@@ -3,8 +3,9 @@
   <head>
     <title>MoFood</title>
     <!-- Bootstrap -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/static/css/datepicker.css" rel="stylesheet" media="screen">
+    {% assets "css_all" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" media="screen"></script>
+    {% endassets %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <style type="text/css">
         .container-fluid {
@@ -60,8 +61,9 @@
     </div>
     </div>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/bootstrap-datepicker.js"></script>
+    {% assets "js_all" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
     <script type="text/javascript">
         $(function(){
