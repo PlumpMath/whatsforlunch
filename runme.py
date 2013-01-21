@@ -46,11 +46,19 @@ def tomorrow():
     return redirect(url_for_offset(1))
 
 
+def attach_meal_times(meals):
+    for meal in meals:
+        dt_list = meal['startDate'].split(',')
+        (hour, minute) = (dt_list[-2], dt_list[-1])
+        meal['time'] = '{}.{}'.format(hour, minute)
+
+
 @app.route('/<int:year>-<int:month>-<int:day>/')
 def food_for_date(year, month, day):
     date_string = '{}-{}-{}'.format(year, month, day)
     date = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
     f = data.get_food_for_day(date)
+    attach_meal_times(f)
     return render_template('index.html', meals=f, date=date)
 
 # Initialize server with optional debug mode

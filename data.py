@@ -26,8 +26,8 @@ def find_date(li, formatted_date):
     return ret
 
 
-def replace_cater2me_links(menu_list):
-    """Replaces relative links in cater2me 'headline's"""
+def replace_cater2me_text(menu_list):
+    """Replaces text in menu_list"""
     for item in menu_list:
         item['headline'] = item['headline'].replace('src="/', 'src="http://cater2.me/')
         item['headline'] = item['headline'].replace('href="/', 'href="http://cater2.me/')
@@ -46,5 +46,5 @@ def get_food_for_day(date=None):
     menu_list = timeline['timeline']['date']
     date_formatted = day_format(date)
     foods = find_date(menu_list, date_formatted)
-    foods = replace_cater2me_links(foods)
+    foods = replace_cater2me_text(foods)
     return foods
