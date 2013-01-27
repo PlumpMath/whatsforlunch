@@ -9,9 +9,9 @@ import data
 
 app = Flask(__name__)
 assets = Environment(app)
-js = Bundle('js/bootstrap.min.js', 'js/bootstrap-datepicker.js', 'components/select2/select2.js', 'js/lunch.js',
+js = Bundle('js/bootstrap-datepicker.js', 'js/lunch.js',
             filters='jsmin', output='gen/packed.js')
-assets.register('js_all', js)
+assets.register('js_all','js/bootstrap.min.js',  'components/select2/select2.min.js', js)
 
 css = Bundle('css/bootstrap.min.css', 'css/datepicker.css', 'components/select2/select2.css',
                  filters='cssmin', output="gen/all.css")

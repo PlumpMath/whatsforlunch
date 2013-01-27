@@ -8,15 +8,18 @@
     {% endassets %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <style type="text/css">
-        /*#navlist li a{
+        #navlist li a{
             margin: 10px;
             font-size: 16px;
-        }*/
+        }
         .datepicker {
             margin-top: 6px;
         }
         .date-selection {
             margin: 10px;
+        }
+        #content {
+            padding-top: 10px;
         }
 
     </style>
@@ -45,18 +48,24 @@
                     <a class="btn btn-small btn-inverse" href={{ url_for('index') }}> Today </a>
                 </div>
                 <div class="row-fluid">
-                    <select class="span4 offset2"multiple id="allergens">
-                        <option value="(Gluten Free)">Gluten Free</option>
-                        <option value="S">Soy Free</option>
-                        <option value="D">Dairy Safe</option>
-                        <option value="N">Nut Safe</option>
+                    <select class="span4 offset2"multiple id="allergens" placeholder="Filter by your dietary restrictions...">
+                        <option value="(Vegetarian)">Vegetarian</option>
+                        <option value="(Vegan)">Vegan</option>
+                        <option value="(Gluten Safe)">Gluten Safe</option>
+                        <option value="(Dairy Safe)">Dairy Safe</option>
+                        <option value="(Nut Safe)">Nut Safe</option>
+                        <option value="(Soy Safe)">Soy Safe</option>
+                        <option value="(Egg Safe)">Egg Safe</option>
                     </select>
+                    <div class="span3" >
+                        <button class="btn btn-small" id="clear-filters"> Clear filters</button>
+                    </div>
                 </div>
             </div>
             
-            <div id="content" class="span10 offset2">
+            <div id="content" class="span10 offset2 menu">
             {% if not meals  %}
-                Sorry bro, I can't find any meals for this date. It's either because no meals were catered or because cater2me's API stopped sending info for this date.
+                Sorry, I can't find any meals for this date. Either we had no meals or cater2me stopped sending information about them.
             {% endif %}
             {% for meal in meals %}
                 <section id="{{loop.index}}">
