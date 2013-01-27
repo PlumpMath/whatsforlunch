@@ -9,11 +9,11 @@ import data
 
 app = Flask(__name__)
 assets = Environment(app)
-js = Bundle('js/bootstrap.min.js', 'js/bootstrap-datepicker.js',
+js = Bundle('js/bootstrap.min.js', 'js/bootstrap-datepicker.js', 'components/select2/select2.js', 'js/lunch.js',
             filters='jsmin', output='gen/packed.js')
 assets.register('js_all', js)
 
-css = Bundle('css/bootstrap.min.css', 'css/datepicker.css',
+css = Bundle('css/bootstrap.min.css', 'css/datepicker.css', 'components/select2/select2.css',
                  filters='cssmin', output="gen/all.css")
 assets.register('css_all', css)
 
@@ -65,6 +65,7 @@ def food_for_date(year, month, day):
 if __name__ == '__main__':
     if os.environ.get('TESTING', '0') == '1':
         app.debug = True
+        app.config['ASSETS_DEBUG'] = True
         app.run()
     else:
         port = int(os.environ.get('PORT', 5000))
