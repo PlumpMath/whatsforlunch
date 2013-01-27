@@ -37,8 +37,18 @@ $(function(){
 			return $(this).css('font-size') !== '10px'; 
 		});
 	};
+	var getAllergenList = function(){
+		try{
+			var allergenList = JSON.parse(localStorage['allergenList'])	;
+			return allergenList
+		}
+		catch(e){
+			console.log(e);
+			return []
+		}
+	};
 	var applyAllergenList = function(){
-		var allergenList = JSON.parse(localStorage['allergenList']);
+		var allergenList = getAllergenList();
 		eltsToChange().css('color', 'black');
 		$.each(allergenList, function(ind, value){
 			eltsToChange().each(function(ind2, value2){
@@ -54,7 +64,7 @@ $(function(){
 		});
 	};
 	var populateFilterSelect = function(){
-		var allergenList = JSON.parse(localStorage['allergenList']);
+		var allergenList = getAllergenList();
 		$('#allergens').select2('val', allergenList);
 	};
 	var initializeFilters = function(){
