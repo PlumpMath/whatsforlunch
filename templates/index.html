@@ -41,8 +41,9 @@
             <div class="row-fluid date-selection">
                 <div class="span8 offset2">
                     <input type="text" class="datepicker" id="menu-date" value="{{ date.strftime('%m/%d/%Y') }}" data-date-format="mm/dd/yyyy"> <span class="add-on"><i class="icon-th"></i></span>
-                    <button class="btn btn-small" id="prev-date"> << Prev </button>
-                    <button class="btn btn-small" id="next-date"> Next >></button>
+                    <button class="btn btn-small btn-info" id="prev-date"> << Prev </button>
+                    <button class="btn btn-small btn-info" id="next-date"> Next >></button>
+                    <a class="btn btn-small btn-inverse" href={{ url_for('index') }}> Today </a>
                 </div>
             </div>
             <div id="content" class="span10 offset2">
@@ -90,7 +91,6 @@
             var newDate = d.add(offset).days();
             newUrlSuffix = newDate.toString('yyyy-MM-dd');
             goToSuffix(newUrlSuffix);
-
         }
     </script>
   </body>
