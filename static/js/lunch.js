@@ -82,7 +82,7 @@
         if (value === "(Vegetarian)" || value === "(Vegan)") {
           return vegFade(value, value2);
         } else {
-          if ($(value2).attr("title") && $(value2).attr("title").indexOf(value) < 0) {
+          if ($(value2).attr("title") && !$(value2).attr("title").contains(value)) {
             return fadeItemOut(value2);
           }
         }

@@ -52,7 +52,7 @@ applyAllergenList = ->
       if value in ["(Vegetarian)", "(Vegan)"]
         vegFade value, value2
       else
-        fadeItemOut(value2) if $(value2).attr("title") and $(value2).attr("title").indexOf(value) < 0
+        fadeItemOut(value2) if $(value2).attr("title") and not $(value2).attr("title").contains(value)
 
 
 
