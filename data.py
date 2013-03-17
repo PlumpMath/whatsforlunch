@@ -7,8 +7,7 @@ def get_json_timeline():
     cached_timeline = cache.get('timeline')
     if cached_timeline is None:
         r = requests.get(
-            'http://cater2.me/VeriteCo-TimelineJS/calendar/Mopub.json'
-            )
+            'http://cater2.me/VeriteCo-TimelineJS/calendar/Mopub.json')
         cached_timeline = r.json()
         cache.set('timeline', cached_timeline, timeout=60 * 60)
     return cached_timeline
