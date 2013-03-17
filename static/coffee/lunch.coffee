@@ -14,8 +14,12 @@ String::contains = (it) ->
 fadeItemOut = (elt) ->
   
   # Fade menu item and its description
-  $(elt).css "color", "gray"
-  $(elt).next().css "color", "gray"
+  $(elt).animate {"color":"#d8d8d8"}, 500
+  $(elt).next().animate {"color":"#d8d8d8"}, 500
+
+turnItemToBlack = (elt) ->
+  $(elt).css('color', 'black')
+  $(elt).next().css('color', 'black')
 
 vegFade = (filter, elt) ->
   if filter is "(Vegan)"
@@ -41,13 +45,14 @@ getAllergenList = ->
 
 applyAllergenList = ->
   allergenList = getAllergenList()
-  eltsToChange().css "color", "black"
+  eltsToChange().each (ind, value) ->
+    turnItemToBlack(value)
   $.each allergenList, (ind, value) ->
     eltsToChange().each (ind2, value2) ->
-      if value is "(Vegetarian)" or value is "(Vegan)"
+      if value in ["(Vegetarian)", "(Vegan)"]
         vegFade value, value2
       else
-        fadeItemOut(value2) if $(value2).attr("title") and value not in $(value2).attr("title")
+        fadeItemOut(value2) if $(value2).attr("title") and $(value2).attr("title").indexOf(value) < 0
 
 
 
