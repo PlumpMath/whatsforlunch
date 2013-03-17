@@ -60,9 +60,7 @@ populateFilterSelect = ->
   allergenList = getAllergenList()
   $("#allergens").select2 "val", allergenList
 
-initializeFilters = ->
-  populateFilterSelect()
-  $("#allergens").trigger "change"
+
 
 $ ->
   $(".datepicker").datepicker()
@@ -88,4 +86,8 @@ $ ->
 
   $("#clear-filters").click ->
     $("#allergens").val []
+    $("#allergens").trigger "change"
+
+  initializeFilters = do ->
+    populateFilterSelect()
     $("#allergens").trigger "change"
