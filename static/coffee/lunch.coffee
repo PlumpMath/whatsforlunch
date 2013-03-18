@@ -12,10 +12,11 @@ moveDatePickerBy = (offset) ->
 String::contains = (it) ->
   @indexOf(it) isnt -1
 fadeItemOut = (elt) ->
-  
   # Fade menu item and its description
-  $(elt).animate {"color":"#d8d8d8"}, 500
-  $(elt).next().animate {"color":"#d8d8d8"}, 500
+  if $(elt).css('color') isnt "#d8d8d8"
+    $(elt).animate {"color":"#d8d8d8"}, 500
+    $(elt).next().animate {"color":"#d8d8d8"}, 500
+isFaded = (elt) -> $(elt).css('color') is "#d8d8d8"
 
 turnItemToBlack = (elt) ->
   $(elt).css('color', 'black')
@@ -28,7 +29,16 @@ vegFade = (filter, elt) ->
 
 # Fades element if its innerHTML does not contain one of filter
 fadeOnHtml = (filter1, filter2, elt) ->
-  fadeItemOut elt  if not $(elt).html().contains(filter1) and not $(elt).html().contains(filter2)
+  if not $(elt).html().contains(filter1) and not $(elt).html().contains(filter2)
+    fadeItemOut(elt)
+  else
+    turnItemToBlack(elt)
+
+fadeOnTitle = (filter, elt) ->
+  if $(elt).attr('title')?.contains(filter)
+    turnItemToBlack(elt)
+  else
+    fadeItemOut(elt)
 
 eltsToChange = ->
   $(".menu section").children("span").children().filter ->
@@ -45,14 +55,15 @@ getAllergenList = ->
 
 applyAllergenList = ->
   allergenList = getAllergenList()
-  eltsToChange().each (ind, value) ->
-    turnItemToBlack(value)
-  $.each allergenList, (ind, value) ->
-    eltsToChange().each (ind2, value2) ->
-      if value in ["(Vegetarian)", "(Vegan)"]
-        vegFade value, value2
+  if allergenList.length is 0
+    eltsToChange().each (ind, value) ->
+      turnItemToBlack(value)
+  $.each allergenList, (ind, allergen) ->
+    eltsToChange().each (ind2, elt) ->
+      if allergen in ["(Vegetarian)", "(Vegan)"]
+        vegFade allergen, elt
       else
-        fadeItemOut(value2) if $(value2).attr("title") and not $(value2).attr("title").contains(value)
+        fadeOnTitle allergen, elt
 
 
 
