@@ -27,18 +27,18 @@ vegFade = (filter, elt) ->
     fadeOnHtml "(Vegan)", null, elt
   else fadeOnHtml "(Vegan)", "(Vegetarian)", elt  if filter is "(Vegetarian)"
 
-# Fades element if its innerHTML does not contain one of filter
+# Return true iff the element's innerHTML contains neither filter1 nor filter2
 fadeOnHtml = (filter1, filter2, elt) ->
   if not $(elt).html().contains(filter1) and not $(elt).html().contains(filter2)
-    fadeItemOut(elt)
+    return true
   else
-    turnItemToBlack(elt)
+    return false
 
 fadeOnTitle = (filter, elt) ->
   if $(elt).attr('title')?.contains(filter)
-    turnItemToBlack(elt)
+    return false
   else
-    fadeItemOut(elt)
+    return true
 
 eltsToChange = ->
   $(".menu section").children("span").children().filter ->
@@ -58,13 +58,16 @@ applyAllergenList = ->
   if allergenList.length is 0
     eltsToChange().each (ind, value) ->
       turnItemToBlack(value)
+  elts_to_fade = []
+  allMenuItems = eltsToChange()
   $.each allergenList, (ind, allergen) ->
     eltsToChange().each (ind2, elt) ->
       if allergen in ["(Vegetarian)", "(Vegan)"]
-        vegFade allergen, elt
+        elts_to_fade.push(elt) if vegFade allergen, elt
       else
-        fadeOnTitle allergen, elt
-
+        elts_to_fade.push(elt) if fadeOnTitle allergen, elt
+  (fadeItemOut(elt) for elt in _.uniq(elts_to_fade))
+  (turnItemToBlack(elt) for elt in allMenuItems when elt not in elts_to_fade)
 
 
 populateFilterSelect = ->
