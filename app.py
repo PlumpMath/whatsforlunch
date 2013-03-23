@@ -9,7 +9,7 @@ import data
 
 app = Flask(__name__)
 assets = Environment(app)
-js = Bundle('js/bootstrap.min.js',  'components/select2/select2.min.js', 
+js = Bundle('js/bootstrap.min.js', 'js/bootstrap-scrollspy.js',  'components/select2/select2.min.js',
     'js/bootstrap-datepicker.js', 'js/underscore-min.js','js/lunch.js',
             filters='jsmin', output='gen/packed.js')
 assets.register('js_all', js)

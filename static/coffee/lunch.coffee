@@ -26,7 +26,7 @@ vegFade = (filter, elt) ->
   if filter is "(Vegan)"
     fadeOnHtml "(Vegan)", null, elt
   else if filter is "(Vegetarian)"
-    fadeOnHtml "(Vegan)", "(Vegetarian)", elt  
+    fadeOnHtml "(Vegan)", "(Vegetarian)", elt
   else
     false
 
@@ -105,3 +105,4 @@ $ ->
   initializeFilters = do ->
     populateFilterSelect()
     $("#allergens").trigger "change"
+  $('body').scrollspy()

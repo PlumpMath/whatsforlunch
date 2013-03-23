@@ -156,10 +156,11 @@
       $("#allergens").val([]);
       return $("#allergens").trigger("change");
     });
-    return initializeFilters = (function() {
+    initializeFilters = (function() {
       populateFilterSelect();
       return $("#allergens").trigger("change");
     })();
+    return $('body').scrollspy();
   });
 
 }).call(this);
