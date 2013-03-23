@@ -48,10 +48,10 @@
   vegFade = function(filter, elt) {
     if (filter === "(Vegan)") {
       return fadeOnHtml("(Vegan)", null, elt);
+    } else if (filter === "(Vegetarian)") {
+      return fadeOnHtml("(Vegan)", "(Vegetarian)", elt);
     } else {
-      if (filter === "(Vegetarian)") {
-        return fadeOnHtml("(Vegan)", "(Vegetarian)", elt);
-      }
+      return false;
     }
   };
 
@@ -92,15 +92,10 @@
   applyAllergenList = function() {
     var allMenuItems, allergenList, elt, elts_to_fade, _i, _j, _len, _len1, _ref, _results;
     allergenList = getAllergenList();
-    if (allergenList.length === 0) {
-      eltsToChange().each(function(ind, value) {
-        return turnItemToBlack(value);
-      });
-    }
-    elts_to_fade = [];
     allMenuItems = eltsToChange();
+    elts_to_fade = [];
     $.each(allergenList, function(ind, allergen) {
-      return eltsToChange().each(function(ind2, elt) {
+      return allMenuItems.each(function(ind2, elt) {
         if (allergen === "(Vegetarian)" || allergen === "(Vegan)") {
           if (vegFade(allergen, elt)) {
             return elts_to_fade.push(elt);

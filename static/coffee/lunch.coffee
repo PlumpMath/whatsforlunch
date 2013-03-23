@@ -25,7 +25,10 @@ turnItemToBlack = (elt) ->
 vegFade = (filter, elt) ->
   if filter is "(Vegan)"
     fadeOnHtml "(Vegan)", null, elt
-  else fadeOnHtml "(Vegan)", "(Vegetarian)", elt  if filter is "(Vegetarian)"
+  else if filter is "(Vegetarian)"
+    fadeOnHtml "(Vegan)", "(Vegetarian)", elt  
+  else
+    false
 
 # Return true iff the element's innerHTML contains neither filter1 nor filter2
 fadeOnHtml = (filter1, filter2, elt) ->
@@ -33,7 +36,7 @@ fadeOnHtml = (filter1, filter2, elt) ->
     return true
   else
     return false
-
+# Return true iff the element's title does not contain filter
 fadeOnTitle = (filter, elt) ->
   if $(elt).attr('title')?.contains(filter)
     return false
@@ -55,13 +58,10 @@ getAllergenList = ->
 
 applyAllergenList = ->
   allergenList = getAllergenList()
-  if allergenList.length is 0
-    eltsToChange().each (ind, value) ->
-      turnItemToBlack(value)
-  elts_to_fade = []
   allMenuItems = eltsToChange()
+  elts_to_fade = []
   $.each allergenList, (ind, allergen) ->
-    eltsToChange().each (ind2, elt) ->
+    allMenuItems.each (ind2, elt) ->
       if allergen in ["(Vegetarian)", "(Vegan)"]
         elts_to_fade.push(elt) if vegFade allergen, elt
       else
