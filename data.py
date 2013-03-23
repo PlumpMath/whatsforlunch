@@ -18,11 +18,7 @@ def day_format(date=None):
 
 
 def find_date(li, formatted_date):
-    ret = []
-    for x in li:
-        if x['startDate'][:10] == formatted_date:
-            ret.append(x)
-    return ret
+    return [x for x in li if x['startDate'][:10] == formatted_date]
 
 
 def replace_cater2me_text(menu_list):
