@@ -44,7 +44,7 @@ fadeOnTitle = (filter, elt) ->
     return true
 
 eltsToChange = ->
-  $(".menu section").children("span").children().filter ->
+  $(".meal-text").children("span").children().filter ->
     $(this).css("font-size") isnt "10px"
 
 

@@ -60,7 +60,8 @@ def food_for_date(year, month, day):
     date = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
     f = data.get_food_for_day(date)
     attach_meal_times(f)
-    return render_template('index.html', meals=f, date=date)
+    meal_num_to_name = {0: 'breakfast', 1: 'lunch', 2: 'dinner'}
+    return render_template('index.html', meals=f, date=date, meal_num_to_name=meal_num_to_name)
 
 # Initialize server with optional debug mode
 if __name__ == '__main__':

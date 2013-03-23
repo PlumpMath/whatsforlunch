@@ -73,7 +73,7 @@
   };
 
   eltsToChange = function() {
-    return $(".menu section").children("span").children().filter(function() {
+    return $(".meal-text").children("span").children().filter(function() {
       return $(this).css("font-size") !== "10px";
     });
   };

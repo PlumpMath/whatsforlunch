@@ -25,6 +25,11 @@
             visibility: hidden;
             height: 30px;
         }
+        .meal-section {
+            position: relative;
+            right: 32px;
+            top: 10px;
+        }
     </style>
   </head>
   <body>
@@ -39,9 +44,9 @@
         </div>
         <div class="row-fluid">
             <ul id="navlist" class="nav nav-list affix span2">
-                <li><a href="#1">Breakfast</a></li>
-                <li><a href="#2">Lunch</a></li>
-                <li><a href="#3">Dinner</a></li>
+                <li><a href="#breakfast">Breakfast</a></li>
+                <li><a href="#lunch">Lunch</a></li>
+                <li><a href="#dinner">Dinner</a></li>
             </ul>
             <div id="content-outer" class="row-fluid">
                 <div class="span8 offset2 date-selection">
@@ -65,15 +70,19 @@
                     </div>
                 </div>
             </div>
-            <div id="content" class="span10 offset2 menu">
+            <div id="content" class="span8 offset2 menu">
             {% if not meals  %}
                 Sorry, I can't find any meals for this date. Either we had no meals or cater2me stopped sending information about them.
             {% endif %}
             {% for meal in meals %}
-                <section id="{{loop.index}}">
+                <section class="meal-section" id="{{meal_num_to_name[loop.index0]}}">
+                    <div class="well">
+                    <h3><em>{{meal_num_to_name[loop.index0]|capitalize}} ({{meals[loop.index0].time}})</em><h3>
                     <h2 class="meal-headline">{{ meal.headline|safe }}</h2>
-                    <h4 class="meal-time"> Served at {{ meal.time }}</h4>
-                    {{ meal.text|safe }}
+                    <div class="meal-text">
+                        {{ meal.text|safe }}
+                    </div>
+                    </div>
                 </section>
                 </br>
             {% endfor %}
