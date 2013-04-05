@@ -6,6 +6,7 @@ from flask.ext.assets import Environment, Bundle
 import pytz
 
 import data
+import yelp
 
 app = Flask(__name__)
 assets = Environment(app)
@@ -47,11 +48,24 @@ def tomorrow():
     return redirect(url_for_offset(1))
 
 
+## Helpers
 def attach_meal_times(meals):
     for meal in meals:
         dt_list = meal['startDate'].split(',')
         (hour, minute) = (dt_list[-2], dt_list[-1])
         meal['time'] = '{}.{}'.format(hour, minute)
+    return meals
+
+
+def attach_yelp_data(meals):
+    for meal in meals:
+        try:
+            yelp_raw = yelp.closest_match_sf(meal['headline'])
+            meal['yelp'] = yelp_raw
+        except Exception:
+            raise
+        #     meal['yelp'] = {}
+    return meals
 
 
 @app.route('/<int:year>-<int:month>-<int:day>/')
@@ -60,6 +74,7 @@ def food_for_date(year, month, day):
     date = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
     f = data.get_food_for_day(date)
     attach_meal_times(f)
+    attach_yelp_data(f)
     meal_num_to_name = {0: 'breakfast', 1: 'lunch', 2: 'dinner'}
     return render_template('index.html', meals=f, date=date, meal_num_to_name=meal_num_to_name)
 

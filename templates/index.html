@@ -30,6 +30,10 @@
             right: 32px;
             top: 10px;
         }
+        .yelp-url {
+            margin-left: 10px;
+            font-style: italic;
+        }
     </style>
   </head>
   <body>
@@ -79,6 +83,14 @@
                     <div class="well">
                     <h3><em>{{meal_num_to_name[loop.index0]|capitalize}} ({{meals[loop.index0].time}})</em><h3>
                     <h2 class="meal-headline">{{ meal.headline|safe }}</h2>
+                    <div class="yelp">
+                        <span class="yelp-rating">
+                            <img src="{{ meal.yelp.rating_img_url }}"> ({{ meal.yelp.review_count }} ratings)
+                        </span>
+                        <span class="yelp-url">
+                                <a href="{{ meal.yelp.url }}">See me on Yelp</a>
+                        </span>
+                    </div>
                     <div class="meal-text">
                         {{ meal.text|safe }}
                     </div>
