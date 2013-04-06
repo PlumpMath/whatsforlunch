@@ -63,8 +63,7 @@ def attach_yelp_data(meals):
             yelp_raw = yelp.closest_match_sf(meal['headline'])
             meal['yelp'] = yelp_raw
         except Exception:
-            raise
-            # meal['yelp'] = {}
+            meal['yelp'] = {}
     return meals
 
 
@@ -85,7 +84,6 @@ if __name__ == '__main__':
         app.config['ASSETS_DEBUG'] = True
         app.run()
     else:
-        app.debug = True
         port = int(os.environ.get('PORT', 5000))
-        # app.config['ASSETS_DEBUG'] = True
+        app.config['ASSETS_DEBUG'] = True
         app.run(host='0.0.0.0', port=port)
