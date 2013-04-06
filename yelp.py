@@ -23,7 +23,7 @@ def closest_match_sf(name):
         pass
     base_key = unicode('yelp_match')
     yelp_match = cache.get(base_key + name)
-    print u'trying to get {}'.format(name)
+    # print u'trying to get {}'.format(name)
     if yelp_match is None:
         payload = {
             'term': name,
@@ -33,8 +33,8 @@ def closest_match_sf(name):
         }
         response = client.get('http://api.yelp.com/v2/search', params=payload)
         yelp_match = response.json()['businesses'][0]
-        print u'caching {}'.format(name)
+        # print u'caching {}'.format(name)
         cache.set(base_key + name, yelp_match, timeout=60*60)
-    else:
-        print 'cache hit'
+    # else:
+        # print 'cache hit'
     return yelp_match
