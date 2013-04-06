@@ -63,7 +63,8 @@ def attach_yelp_data(meals):
             yelp_raw = yelp.closest_match_sf(meal['headline'])
             meal['yelp'] = yelp_raw
         except Exception:
-            meal['yelp'] = {}
+            raise
+            # meal['yelp'] = {}
     return meals
 
 
