@@ -8,9 +8,14 @@
     {% endassets %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <style type="text/css">
+        .meal-name {
+            color: #686868 ;
+        }
         #navlist li a{
             margin: 10px;
             font-size: 16px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
         .datepicker {
             margin-top: 6px;
@@ -31,8 +36,20 @@
             top: 10px;
         }
         .yelp-url {
-            margin-left: 10px;
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 16px;
             font-style: italic;
+        }
+        .meal-text {
+            padding-top: 20px;
+        }
+        #navlist li {
+            margin-top: 20px;
+
+        }
+        #navlist li:first-child {
+            margin-top: 0px;
         }
     </style>
   </head>
@@ -44,7 +61,7 @@
             </div>
         </div>
         <div class="row-fluid">
-            <h2 class="span10 offset2">{{ date.strftime('%A, %B %d, %Y') }} </h2>
+            <h3 class="span10 offset2"> Menu for {{ date.strftime('%A, %B %d, %Y') }} </h3>
         </div>
         <div class="row-fluid">
             <ul id="navlist" class="nav nav-list affix span2">
@@ -55,8 +72,8 @@
             <div id="content-outer" class="row-fluid">
                 <div class="span8 offset2 date-selection">
                     <input type="text" class="datepicker" id="menu-date" value="{{ date.strftime('%m/%d/%Y') }}" data-date-format="mm/dd/yyyy"> <span class="add-on"><i class="icon-th"></i></span>
-                    <a class="btn btn-small btn-primary" href={{ url_for('index') }}> Today </a>
                     <button class="btn btn-small" id="prev-date"> << Prev </button>
+                    <a class="btn btn-small btn-primary" href={{ url_for('index') }}> Today </a>
                     <button class="btn btn-small" id="next-date"> Next >></button>
                 </div>
                 <div class="row-fluid allergen-selector">
@@ -86,14 +103,14 @@
             {% for meal in meals %}
                 <section class="meal-section" id="{{meal_num_to_name[loop.index0]}}">
                     <div class="well">
-                    <h3><em>{{meal_num_to_name[loop.index0]|capitalize}} ({{meals[loop.index0].time}})</em><h3>
-                    <h2 class="meal-headline">{{ meal.headline|safe }}</h2>
+                    <h3 class="meal-name"><em>{{meal_num_to_name[loop.index0]|capitalize}} @ {{meals[loop.index0].time}}</em><h3>
+                    <h3 class="meal-headline">{{ meal.headline|safe }}</h3>
                     <div class="yelp">
                         <span class="yelp-rating">
                             <img src="{{ meal.yelp.rating_img_url }}"> ({{ meal.yelp.review_count }} ratings)
                         </span>
                         <span class="yelp-url">
-                                <a href="{{ meal.yelp.url }}">See me on Yelp</a>
+                                <a href="{{ meal.yelp.url }}">[Yelp]</a>
                         </span>
                     </div>
                     <div class="meal-text">
