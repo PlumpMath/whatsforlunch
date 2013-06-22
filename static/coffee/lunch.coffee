@@ -12,7 +12,8 @@ moveDatePickerBy = (offset) ->
 String::contains = (it) ->
   @indexOf(it) isnt -1
 fadeItemOut = (elt) ->
-  # Fade menu item and its description
+  # Fade menu item and its
+  #
   if $(elt).css('color') isnt "#d8d8d8"
     $(elt).animate {"color":"#d8d8d8"}, 500
     $(elt).next().animate {"color":"#d8d8d8"}, 500
