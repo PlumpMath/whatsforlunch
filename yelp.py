@@ -28,7 +28,6 @@ def closest_match_sf(name):
             'term': name,
             'location': 'San Francisco',
             'limit': 1,
-            'category_filter': 'restaurants'
         }
         response = client.get('http://api.yelp.com/v2/search', params=payload)
         yelp_match = response.json()['businesses'][0]
